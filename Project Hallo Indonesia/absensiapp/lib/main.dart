@@ -1,6 +1,9 @@
+import 'package:absensiapp/jadwal_absensi_murid_screen.dart';
 import 'package:flutter/material.dart';
 
-void main() {}
+void main() {
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -36,13 +39,107 @@ class MyApp extends StatelessWidget {
                           radius: 30,
                           backgroundImage: AssetImage('assets/images/boy.png'),
                         )),
-                    title: Text("Didi Ahmadi"),
+                    title: Text("Peter Tanumiharjo"),
                     subtitle: Text("Rekayasa Perangkat Lunak"),
                   ),
                 ),
               ),
             ),
             actions: [IconButton(onPressed: () {}, icon: Icon(Icons.settings))],
+          ),
+        ),
+        body: Container(
+          width: double.infinity,
+          margin: const EdgeInsets.only(
+            left: 20,
+            top: 10,
+            bottom: 10,
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Container(
+                margin: const EdgeInsets.only(right: 20),
+                child: Card(
+                  child: ListTile(
+                    dense: true,
+                    visualDensity: VisualDensity.compact,
+                    contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                    leading: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4),
+                            color: Colors.orange),
+                        padding: const EdgeInsets.all(4),
+                        child: Text('info')),
+                    title: Text('Jadwal Seminar ITE TKJ'),
+                    trailing: const Icon(
+                      Icons.close,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ),
+              ),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    // kotak menu
+                    ShortcutMenu(title: "Absensi"),
+                    ShortcutMenu(title: "Jadwal"),
+                    ShortcutMenu(title: "Tugas"),
+                    ShortcutMenu(title: "Rapot"),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+      routes: {
+        JadwalAbsenMuridScreen.routeName: (context) => JadwalAbsenMuridScreen()
+      },
+    );
+  }
+}
+
+class ShortcutMenu extends StatelessWidget {
+  final String title;
+  const ShortcutMenu({required this.title, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).pushNamed(JadwalAbsenMuridScreen.routeName);
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Card(
+          child: Column(
+            children: [
+              Container(
+                width: 100,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: Colors.grey,
+                  ),
+                ),
+                child: Center(
+                  child: CircleAvatar(
+                    backgroundColor: Colors.white,
+                    child: Icon(
+                      Icons.calendar_month,
+                      color: Colors.green,
+                    ),
+                  ),
+                ),
+              ),
+              Text(title),
+            ],
           ),
         ),
       ),

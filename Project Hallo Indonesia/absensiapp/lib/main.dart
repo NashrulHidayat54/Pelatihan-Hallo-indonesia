@@ -1,4 +1,7 @@
 import 'package:absensiapp/jadwal_absensi_murid_screen.dart';
+import 'package:absensiapp/jadwal_murid.dart';
+import 'package:absensiapp/rapot_murid.dart';
+import 'package:absensiapp/tugas_murid.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -56,7 +59,6 @@ class MyApp extends StatelessWidget {
             bottom: 10,
           ),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Container(
                 margin: const EdgeInsets.only(right: 20),
@@ -85,10 +87,30 @@ class MyApp extends StatelessWidget {
                 child: Row(
                   children: [
                     // kotak menu
-                    ShortcutMenu(title: "Absensi"),
-                    ShortcutMenu(title: "Jadwal"),
-                    ShortcutMenu(title: "Tugas"),
-                    ShortcutMenu(title: "Rapot"),
+                    ShortcutMenu(
+                      title: "Absensi",
+                      icon: Icons.calendar_month,
+                      color: Colors.red,
+                      routeName: JadwalAbsenMuridScreen.routeName,
+                    ),
+                    ShortcutMenu(
+                      title: "Jadwal",
+                      icon: Icons.schedule,
+                      color: Colors.yellow,
+                      routeName: JadwalMurid.routeName,
+                    ),
+                    ShortcutMenu(
+                      title: "Tugas",
+                      icon: Icons.task,
+                      color: Colors.cyan,
+                      routeName: TugasMurid.routeName,
+                    ),
+                    ShortcutMenu(
+                      title: "Rapot",
+                      icon: Icons.assignment,
+                      color: Colors.blue,
+                      routeName: RapotMurid.routeName,
+                    ),
                   ],
                 ),
               )
@@ -97,7 +119,10 @@ class MyApp extends StatelessWidget {
         ),
       ),
       routes: {
-        JadwalAbsenMuridScreen.routeName: (context) => JadwalAbsenMuridScreen()
+        JadwalAbsenMuridScreen.routeName: (context) => JadwalAbsenMuridScreen(),
+        TugasMurid.routeName: (context) => TugasMurid(),
+        JadwalMurid.routeName: (context) => JadwalMurid(),
+        RapotMurid.routeName: (context) => RapotMurid(),
       },
     );
   }
@@ -105,13 +130,22 @@ class MyApp extends StatelessWidget {
 
 class ShortcutMenu extends StatelessWidget {
   final String title;
-  const ShortcutMenu({required this.title, super.key});
+  final String routeName;
+  final IconData icon;
+  final Color color;
+  const ShortcutMenu({
+    required this.title,
+    required this.routeName,
+    required this.icon,
+    required this.color,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.of(context).pushNamed(JadwalAbsenMuridScreen.routeName);
+        Navigator.of(context).pushNamed(routeName);
       },
       child: Container(
         decoration: BoxDecoration(
@@ -132,8 +166,8 @@ class ShortcutMenu extends StatelessWidget {
                   child: CircleAvatar(
                     backgroundColor: Colors.white,
                     child: Icon(
-                      Icons.calendar_month,
-                      color: Colors.green,
+                      icon,
+                      color: color,
                     ),
                   ),
                 ),
